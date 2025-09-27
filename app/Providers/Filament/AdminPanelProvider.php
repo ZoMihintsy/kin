@@ -62,12 +62,9 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
-    public function canAccess(): bool
+    public static function canAccess() : bool 
     {
-        dd(auth()->user());
-        // $user = Auth::user();
-        // dd($user);
-        return auth()->user() && auth()->user()->type === 'admin';
-
+        $user = Auth::user();
+        return  $user->type == 'admin';
     }
 }
