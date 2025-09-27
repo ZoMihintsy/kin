@@ -1,0 +1,1 @@
+<x-layout><x-header /><main><div class='container'><h1>Ajouter une recette</h1></div></main><x-footer /></x-layout>
