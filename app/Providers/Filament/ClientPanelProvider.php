@@ -8,6 +8,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,6 +20,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class ClientPanelProvider extends PanelProvider
@@ -57,6 +59,14 @@ class ClientPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])->passwordReset();
+            ])->passwordReset()
+            ->navigationItems([
+                NavigationItem::make('Navigue to admin')
+                ->url('/admin-kim')
+                ->icon('heroicon-o-users')
+                ->visible(function () : bool{
+                    return Auth::user()->type === 'admin';
+                }),
+            ]);;
     }
 }
