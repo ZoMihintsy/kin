@@ -7,6 +7,7 @@ use App\Models\Recipe;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\Auth;
 
 class Utilisateur extends StatsOverviewWidget
 {
@@ -27,5 +28,10 @@ class Utilisateur extends StatsOverviewWidget
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->color('success'),
         ];
+    }
+    public static function canAccess() : bool 
+    {
+        $user = Auth::user();
+        return  $user->type == 'admin';
     }
 }

@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\User;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Auth;
 
 class Statistiques extends ChartWidget
 {
@@ -49,6 +50,11 @@ $barColors = array_slice(self::COLORS, 0, count($recipeCounts));
             ],
             'labels'=>$data->pluck('name')->toArray(),
         ];
+    }
+    public function canAccess() : bool 
+    {
+        $user = Auth::user();
+        return  $user->type == 'admin';
     }
 
 }

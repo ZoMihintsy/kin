@@ -26,6 +26,11 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
+    public function canAccess() : bool 
+    {
+        $user = Auth::user();
+        return  $user->type == 'admin';
+    }
     
     public function panel(Panel $panel): Panel
     {
@@ -50,7 +55,7 @@ class AdminPanelProvider extends PanelProvider
                 // AccountWidget::class,
                 // FilamentInfoWidget::class,
                 Statistiques::class,
-                Utilisateur::class
+                Utilisateur::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -72,9 +77,5 @@ class AdminPanelProvider extends PanelProvider
                 ->icon('heroicon-o-users'),
             ]);
     }
-    public static function canAccess() : bool 
-    {
-        $user = Auth::user();
-        return  $user->type == 'admin';
-    }
+    
 }
