@@ -3,6 +3,7 @@
 namespace App\Filament\Client\Resources\Recettes\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\RichEditor\RichEditorTool;
@@ -44,11 +45,9 @@ class RecettesTable
 
             ])
             ->actions([
+                DeleteAction::make()->visible(fn ($record)=> $record->user_id == Auth::user()->id),
                 EditAction::make()
                 ->visible(fn ($record)=> $record->user_id == Auth::user()->id),
-                DeleteBulkAction::make(),
-
-
             ]);
             // ->toolbarActions([
 

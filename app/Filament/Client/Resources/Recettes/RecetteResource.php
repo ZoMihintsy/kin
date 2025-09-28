@@ -25,7 +25,8 @@ class RecetteResource extends Resource
 {
     protected static ?string $model = Recipe::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Cake;
+    protected ?string $heading = 'Recettes';
 
     // protected static ?string $recordTitleAttribute = '';
 
@@ -68,7 +69,7 @@ class RecetteResource extends Resource
             'index' => ListRecettes::route('/'),
             'create' => CreateRecette::route('/create'),
             'edit' => EditRecette::route('/{record}/edit'),
-             'view'=>ViewRecette::route('/{record}')
+            'view'=>ViewRecette::route('/{record}')
         ];
     }
 }

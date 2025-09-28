@@ -9,4 +9,8 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewRecette extends ViewRecord
 {
     protected static string $resource = RecetteResource::class;
+    protected function getViewData(): array
+    {
+        return [];
+    }
 }

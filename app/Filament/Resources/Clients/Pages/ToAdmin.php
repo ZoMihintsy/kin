@@ -10,10 +10,4 @@ class ToAdmin extends ViewRecord
 {
     protected static string $resource = clientResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            EditAction::route('/Client'),
-        ];
-    }
 }

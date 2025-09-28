@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Client\Pages\CustomClient;
+use App\Filament\Widgets\Statistiques;
+use App\Filament\Widgets\Utilisateur;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -45,8 +47,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                // AccountWidget::class,
+                // FilamentInfoWidget::class,
+                Statistiques::class,
+                Utilisateur::class
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -63,7 +67,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->navigationItems([
-                NavigationItem::make('Navigue to client')
+                NavigationItem::make('Go to client')
                 ->url('/client')
                 ->icon('heroicon-o-users'),
             ]);

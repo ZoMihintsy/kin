@@ -61,12 +61,12 @@ class ClientPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->passwordReset()
             ->navigationItems([
-                NavigationItem::make('Navigue to admin')
+                NavigationItem::make('Administrers')
                 ->url('/admin-kim')
                 ->icon('heroicon-o-users')
                 ->visible(function () : bool{
                     return Auth::user()->type === 'admin';
                 }),
-            ]);;
+            ]);
     }
 }

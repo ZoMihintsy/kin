@@ -32,7 +32,7 @@ class RecetteForm
                 ->columns(1),
 
                 Hidden::make('slug')
-                ->default(fn()=> rand(100 , 1999)),
+                ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
                 RichEditor::make('description')
                 ->label('description'),
 
@@ -42,12 +42,13 @@ class RecetteForm
                 ->label('Etape')
                 ->required(),
 
-                Repeater::make('ingredient')
-                ->relationship()
-                ->schema([
+               
                     Select::make('name')
                     ->label('ingredient')
+                    ->relationship(name: 'ingredient', titleAttribute: 'name')
                     ->options(Ingredient::get()->pluck('name','id'))
+                    ->preload()
+                    ->multiple()
                     ->searchable()
                     ->createOptionForm([
                         TextInput::make('name')
@@ -60,7 +61,6 @@ class RecetteForm
                         return $data['name'];
                     })
                     ->required(),
-                ])->required(),
 
                 Repeater::make('tag')
                 ->relationship()
@@ -68,7 +68,7 @@ class RecetteForm
                     TextInput::make('name')
                 ->label('type de recette'),
                 Hidden::make('slug')
-                ->default(fn()=> rand(100 , 1999)),
+                ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
                 ])
                 ->required()
                   
