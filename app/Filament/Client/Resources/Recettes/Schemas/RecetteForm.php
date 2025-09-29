@@ -3,6 +3,7 @@
 namespace App\Filament\Client\Resources\Recettes\Schemas;
 
 use App\Models\Ingredient;
+use App\Models\Tag;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
@@ -24,7 +25,6 @@ class RecetteForm
             ->components([
                 Grid::make()
                 ->schema([
-                  
                 //
                 TextInput::make('title')
                 ->label('Titre du recette')
@@ -43,7 +43,7 @@ class RecetteForm
                 ->required(),
 
                
-                    Select::make('name')
+                    Select::make('ingredient')
                     ->label('ingredient')
                     ->relationship(name: 'ingredient', titleAttribute: 'name')
                     ->options(Ingredient::get()->pluck('name','id'))
@@ -62,16 +62,27 @@ class RecetteForm
                     })
                     ->required(),
 
-                Repeater::make('tag')
-                ->relationship()
-                ->schema([
-                    TextInput::make('name')
-                ->label('type de recette'),
-                Hidden::make('slug')
-                ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
-                ])
-                ->required()
-                  
+                    Select::make('tag')
+                    ->label('Type de recette')
+                    ->relationship(name: 'tag', titleAttribute: 'name')
+                    ->options(Tag::get()->pluck('name','id'))
+                    ->preload()
+                    ->multiple()
+                    ->searchable()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                        ->label('Type de repas')
+                        ->unique(Tag::class,'name'),
+                        Hidden::make('slug')
+                        ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
+                    ])->createOptionUsing(function ($data) {
+                     Tag::create([
+                            'name'=>$data['name'],
+                            'slug'=>$data['slug']
+                        ]);
+                        return $data['name'];
+                    })
+                    ->required()
                 ])->columns(1)
             ]);
     }
