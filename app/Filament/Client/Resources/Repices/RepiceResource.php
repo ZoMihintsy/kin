@@ -1,35 +1,36 @@
 <?php
 
-namespace App\Filament\Client\Resources\Recettes;
+namespace App\Filament\Client\Resources\Repices;
 
-use App\Filament\Client\Pages\ViewResource;
-use App\Filament\Client\Resources\Recettes\Pages\CreateRecette;
-use App\Filament\Client\Resources\Recettes\Pages\EditRecette;
-use App\Filament\Client\Resources\Recettes\Pages\ListRecettes;
-use App\Filament\Client\Resources\Recettes\Pages\ViewRecette;
 use App\Filament\Client\Resources\Recettes\Schemas\RecetteForm;
 use App\Filament\Client\Resources\Recettes\Tables\RecettesTable;
-// use App\Models\Recette;
+use App\Filament\Client\Resources\Repices\Pages\CreateRepice;
+use App\Filament\Client\Resources\Repices\Pages\EditRepice;
+use App\Filament\Client\Resources\Repices\Pages\ListRepices;
+use App\Filament\Client\Resources\Repices\Pages\ViewRepice;
+use App\Filament\Client\Resources\Repices\Schemas\RepiceForm;
+use App\Filament\Client\Resources\Repices\Schemas\RepiceInfolist;
+use App\Filament\Client\Resources\Repices\Tables\RepicesTable;
+use App\Filament\Resources\Recettes\Schemas\RecetteForm as SchemasRecetteForm;
+use App\Filament\Resources\Recettes\Tables\RecettesTable as TablesRecettesTable;
 use App\Models\Recipe;
+use App\Models\Repice;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
-class RecetteResource extends Resource
+class RepiceResource extends Resource
 {
     protected static ?string $model = Recipe::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Cake;
-    protected ?string $heading = 'Recettes';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    // protected static ?string $recordTitleAttribute = '';
-
+    protected static ?string $recordTitleAttribute = 'title';
+  
     public static function getGloballySearchableAttributes(): array
     {         
         return ['title', 'description','user.name','tag.name'];
@@ -49,12 +50,16 @@ class RecetteResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return RecetteForm::configure($schema);
+        return RepiceForm::configure($schema);
+    }
+    public static function infolist(Schema $schema): Schema
+    {
+        return RepiceInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return RecettesTable::configure($table);
+        return RepicesTable::configure($table);
     }
     public static function getRelations(): array
     {
@@ -63,13 +68,14 @@ class RecetteResource extends Resource
         ];
     }
 
+   
     public static function getPages(): array
     {
         return [
-            'index' => ListRecettes::route('/'),
-            'create' => CreateRecette::route('/create'),
-            'edit' => EditRecette::route('/{record}/edit'),
-            'view'=>ViewRecette::route('/{record}')
+            'index' => ListRepices::route('/'),
+            'create' => CreateRepice::route('/create'),
+            'view' => ViewRepice::route('/{record}'),
+            'edit' => EditRepice::route('/{record}/edit'),
         ];
     }
 }

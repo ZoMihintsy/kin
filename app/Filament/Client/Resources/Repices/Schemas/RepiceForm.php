@@ -1,28 +1,27 @@
 <?php
 
-namespace App\Filament\Client\Resources\Recettes\Schemas;
+namespace App\Filament\Client\Resources\Repices\Schemas;
 
 use App\Models\Ingredient;
 use App\Models\Tag;
-use Filament\Actions\Action;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\RichEditor\RichEditorTool;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Forms\Components\FileUpload;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
-use Filament\Tables\Columns\TextInputColumn;
 use Illuminate\Support\Facades\Auth;
 
-class RecetteForm
+class RepiceForm
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
+                // 
                 Grid::make()
                 ->schema([
                 //
@@ -31,6 +30,10 @@ class RecetteForm
                 ->required()
                 ->columns(1),
 
+                FileUpload::make('steps')
+                ->label('Image du recette')
+                ->required(),
+                
                 Hidden::make('slug')
                 ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
                 RichEditor::make('description')
@@ -38,7 +41,16 @@ class RecetteForm
 
                 Hidden::make('user_id')
                 ->default(fn()=> Auth::user()->id),
-                RichEditor::make('steps')
+                
+                Repeater::make('step')
+                ->relationship()
+                ->schema([
+                    TextInput::make('name')
+                    ->required()
+                    ->label('Etape'),
+                    FileUpload::make('image')
+                    ->label('Image pour cette etape')
+                ])
                 ->label('Etape')
                 ->required(),
 
@@ -84,6 +96,7 @@ class RecetteForm
                     })
                     ->required()
                 ])->columns(1)
+                
             ]);
     }
 }
