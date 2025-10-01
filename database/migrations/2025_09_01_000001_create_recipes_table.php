@@ -11,6 +11,8 @@ return new class extends Migration {
             $t->string('slug')->unique();
             $t->text('description')->nullable();
             $t->longText('steps');
+            $t->string('hours');
+            $t->string('difficult');
             $t->timestamps();
         });
     }

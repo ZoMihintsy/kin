@@ -33,7 +33,7 @@ class RepiceResource extends Resource
   
     public static function getGloballySearchableAttributes(): array
     {         
-        return ['title', 'description','user.name','tag.name'];
+        return ['title', 'description','user.name','tag.name', 'hours', 'difficult'];
     }
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {
@@ -42,9 +42,11 @@ class RepiceResource extends Resource
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         return [
-            'utilisateur'=>$record->user->name ?? 'Inconnu',
+            'Publier par : '=>$record->user->name ?? 'Inconnu',
             'Description' =>strip_tags($record->description),
-            'type' => $record->tag->first()?->name
+            'type' => $record->tag->first()?->name,
+            'durer' => $record->hours,
+            'Difficulter' => $record->difficult
         ];
     }
 

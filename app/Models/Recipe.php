@@ -10,7 +10,9 @@ class Recipe extends Model
         'title',
         'slug',
         'description',
-        'steps'
+        'steps',
+        'hours',
+        'difficult'
     ];
     public function user(){ return $this->belongsTo(User::class); }
     public function tag(){ return $this->belongsToMany(Tag::class); }

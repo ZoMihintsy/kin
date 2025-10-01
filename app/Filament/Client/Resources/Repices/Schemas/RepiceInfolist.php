@@ -18,7 +18,7 @@ class RepiceInfolist
                 //
                 Grid::make()
                 ->schema([
- TextEntry::make('title')
+                TextEntry::make('title')
                 ->label('Nom du recette'),
                 TextEntry::make('description')
                 ->html()
@@ -36,7 +36,11 @@ class RepiceInfolist
                 ImageEntry::make('step.image')
                 ->label('image de l\'etape')  
                 ])->columns(1)
-                
+                ,
+                TextEntry::make('hours')
+                ->label('Heure du preparation '),
+                TextEntry::make('difficult')
+                ->label('Difficulter')
                 ])->columns(1)
        
                

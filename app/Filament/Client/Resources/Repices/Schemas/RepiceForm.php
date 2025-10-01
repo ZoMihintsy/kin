@@ -10,6 +10,8 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Range;
+use Filament\Forms\Components\TimePicker;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
@@ -33,7 +35,7 @@ class RepiceForm
                 FileUpload::make('steps')
                 ->label('Image du recette')
                 ->required(),
-                
+
                 Hidden::make('slug')
                 ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
                 RichEditor::make('description')
@@ -94,6 +96,19 @@ class RepiceForm
                         ]);
                         return $data['name'];
                     })
+                    ->required(),
+                    TextInput::make('hours')
+                    ->label('Heure du preparation')
+                    ->placeholder('heure:minute:seconde')
+                    ->mask('99:99:99')
+                    ->helperText('Format (heure : minute : seconde)'),
+                    Select::make('difficult')
+                    ->label('Difficulter du preparation')
+                    ->options([
+                        'facile'=>'Facile',
+                        'difficile'=>'Difficile',
+                        'intermediaire'=>'Intermediaire'
+                    ])->preload()
                     ->required()
                 ])->columns(1)
                 
