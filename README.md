@@ -1,5 +1,5 @@
 
-# Nom de l'Application
+# Kim
 
 Kim
 Une application moderne construite avec Laravel et Filament v4 pour la gestion administrative.
@@ -14,7 +14,7 @@ Une application moderne construite avec Laravel et Filament v4 pour la gestion a
 - [Déploiement](#-déploiement)
 - [Structure](#-structure)
 - [Contribuer](#-contribuer)
-- [Licence](#-licence)
+- [Route](#-route)
 
 ## ✨ Fonctionnalités
 
