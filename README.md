@@ -1,61 +1,296 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Nom de l'Application
 
-## About Laravel
+Kim
+Une application moderne construite avec Laravel et Filament v4 pour la gestion administrative.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Table des matières
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Fonctionnalités](#-fonctionnalités)
+- [Prérequis](#-prérequis)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Développement](#-développement)
+- [Déploiement](#-déploiement)
+- [Structure](#-structure)
+- [Contribuer](#-contribuer)
+- [Licence](#-licence)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fonctionnalités
 
-## Learning Laravel
+### 🎯 Fonctionnalités principales
+- **Tableau de bord administrateur** avec Filament v4
+- **Gestion des utilisateurs** et permissions
+- **CRUD avancé** avec relations complexes
+- **Interface responsive** et moderne
+- **Recherche et filtres** avancés
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🔧 Fonctionnalités techniques
+- Gestion des rôles et permissions
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠 Prérequis
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Avant de commencer, assurez-vous d'avoir installé :
 
-## Laravel Sponsors
+- **PHP** 8.2 ou supérieur
+- **Composer** 2.5 ou supérieur
+- **Node.js** 18 ou supérieur
+- **MySQL** 8.0 ou **PostgreSQL** 13 ou supérieur
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Installation
 
-### Premium Partners
+### 1. Cloner le projet
+```bash
+git clone https://github.com/zomihintsy/kin.git
+cd votre-repo
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. Installer les dépendances PHP
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Configurer l'environnement
 
-## Code of Conduct
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Configurer la base de données
 
-## Security Vulnerabilities
+Éditez le fichier .env avec vos paramètres de base de données :
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nom_de_votre_base
+DB_USERNAME=votre_username
+DB_PASSWORD=votre_password
+```
 
-## License
+5. Exécuter les migrations et seeders
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan migrate --seed
+```
+
+6. Installer les assets Frontend
+
+```bash
+npm install
+npm run build
+```
+
+7. Configurer le stockage
+
+```bash
+php artisan storage:link
+```
+
+8. Lancer l'application
+
+```bash
+php artisan serve
+```
+
+L'application sera accessible à l'adresse : http://localhost:8000
+
+⚙️ Configuration
+
+Variables d'environnement importantes
+
+```env
+APP_NAME="Nom de votre application"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+# Configuration Filament
+FILAMENT_PATH=admin
+
+# Configuration Mail
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+
+# Configuration Cache
+REDIS_CLIENT=phpredis
+```
+
+🎨 Personnalisation Filament
+
+Thème personnalisé
+
+Le thème Filament peut être personnalisé dans :
+
+```php
+// app/Providers/Filament/AdminPanelProvider.php
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->default()
+        ->id('admin')
+        ->path('admin')
+        ->login()
+        ->colors([
+            'primary' => Color::Amber,
+        ])
+        ->font('Inter')
+        ->brandName('Votre Application');
+}
+```
+
+Ressources personnalisées
+
+Les ressources Filament se trouvent dans :
+
+```
+app/Filament/Resources/
+```
+
+🏗 Structure du projet
+
+```
+app/
+├── Filament/
+│   ├── Resources/          # Ressources Filament
+│   ├── Widgets/           # Widgets du dashboard
+│   └── Pages/             # Pages personnalisées
+├── Models/                # Modèles Eloquent
+├── Policies/              # Politiques d'accès
+└── Providers/             # Service Providers
+
+config/
+├── filament.php          # Configuration Filament
+└── ...
+
+database/
+├── migrations/           # Migrations de base de données
+├── seeders/             # Seeders pour les données tests
+└── factories/           # Factories pour les tests
+
+resources/
+├── views/               # Vues Blade personnalisées
+└── css/                # Styles CSS personnalisés
+```
+
+🚀 Déploiement
+
+Production
+
+```bash
+# Optimiser l'application
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Mettre en place la queue
+php artisan queue:work --daemon
+```
+
+Variables d'environnement production
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+
+# Configuration cache
+CACHE_DRIVER=redis
+QUEUE_CONNECTION=redis
+```
+
+🧪 Développement
+
+Lancer les tests
+
+```bash
+php artisan test
+```
+
+Analyser le code
+
+```bash
+composer analyse
+```
+
+Formater le code
+
+```bash
+composer format
+```
+
+Observer les changements (développement)
+
+```bash
+# Pour PHP
+php artisan serve
+
+# Pour les assets
+npm run dev
+```
+# Route
+  GET|HEAD  / ...................................................................................... home
+  GET|HEAD  a-propos ......................................................................... about.show
+  GET|HEAD  admin-kim ....................... filament.admin.pages.dashboard › Filament\Pages › Dashboard
+  GET|HEAD  admin-kim/clients filament.admin.resources.clients.index › App\Filament\Resources\Clients\Pa…
+  GET|HEAD  admin-kim/clients/create filament.admin.resources.clients.create › App\Filament\Resources\Cl…
+  GET|HEAD  admin-kim/clients/{record} filament.admin.resources.clients.view › App\Filament\Resources\cl…
+  GET|HEAD  admin-kim/clients/{record}/edit filament.admin.resources.clients.edit › App\Filament\Resourc…
+  GET|HEAD  admin-kim/ingredients filament.admin.resources.ingredients.index › App\Filament\Resources\In…  
+  GET|HEAD  admin-kim/ingredients/{record} filament.admin.resources.ingredients.view › App\Filament\Reso…  
+  GET|HEAD  admin-kim/login ........................... filament.admin.auth.login › Filament\Auth › Login
+  POST      admin-kim/logout .............. filament.admin.auth.logout › Filament\Auth › LogoutController  
+  GET|HEAD  admin-kim/recettes filament.admin.resources.recettes.index › App\Filament\Resources\Recettes…  
+  GET|HEAD  admin-kim/recettes/create filament.admin.resources.recettes.create › App\Filament\Resources\…
+  GET|HEAD  admin-kim/recettes/{record} filament.admin.resources.recettes.view › App\Filament\Resources\…  
+  GET|HEAD  admin-kim/recettes/{record}/edit filament.admin.resources.recettes.edit › App\Filament\Resou…
+  GET|HEAD  admin-kim/register .................. filament.admin.auth.register › Filament\Auth › Register  
+  GET|HEAD  client ......................... filament.client.pages.dashboard › Filament\Pages › Dashboard  
+  GET|HEAD  client/login ............................. filament.client.auth.login › Filament\Auth › Login
+  POST      client/logout ................ filament.client.auth.logout › Filament\Auth › LogoutController  
+  GET|HEAD  client/password-reset/request filament.client.auth.password-reset.request › Filament\Auth › …
+  GET|HEAD  client/password-reset/reset filament.client.auth.password-reset.reset › Filament\Auth › Rese…  
+  GET|HEAD  client/profile ................... filament.client.auth.profile › Filament\Auth › EditProfile  
+  GET|HEAD  client/register .................... filament.client.auth.register › Filament\Auth › Register
+  GET|HEAD  client/repices filament.client.resources.repices.index › App\Filament\Client\Resources\Repic…  
+  GET|HEAD  client/repices/create filament.client.resources.repices.create › App\Filament\Client\Resourc…  
+  GET|HEAD  client/repices/{record} filament.client.resources.repices.view › App\Filament\Client\Resourc…  
+  GET|HEAD  client/repices/{record}/edit filament.client.resources.repices.edit › App\Filament\Client\Re…
+  GET|HEAD  confirm-password ................. password.confirm › Auth\ConfirmablePasswordController@show
+  POST      confirm-password ................................... Auth\ConfirmablePasswordController@store
+  GET|HEAD  contact ........................................................................ contact.show
+  GET|HEAD  dashboard ................................................... dashboard › DashboardController
+  POST      email/verification-notification verification.send › Auth\EmailVerificationNotificationContro…
+  GET|HEAD  filament/exports/{export}/download filament.exports.download › Filament\Actions › DownloadEx…
+  GET|HEAD  filament/imports/{import}/failed-rows/download filament.imports.failed-rows.download › Filam…
+  GET|HEAD  forgot-password .................. password.request › Auth\PasswordResetLinkController@create
+  POST      forgot-password ..................... password.email › Auth\PasswordResetLinkController@store
+  GET|HEAD  livewire/livewire.js ............ Livewire\Mechanisms › FrontendAssets@returnJavaScriptAsFile
+  GET|HEAD  livewire/livewire.min.js.map ...................... Livewire\Mechanisms › FrontendAssets@maps  
+  GET|HEAD  livewire/preview-file/{filename} livewire.preview-file › Livewire\Features › FilePreviewCont…  
+  POST      livewire/update ......... livewire.update › Livewire\Mechanisms › HandleRequests@handleUpdate  
+  POST      livewire/upload-file . livewire.upload-file › Livewire\Features › FileUploadController@handle  
+  GET|HEAD  login .................................... login › Auth\AuthenticatedSessionController@create  
+  POST      login ............................................. Auth\AuthenticatedSessionController@store
+  POST      logout ................................. logout › Auth\AuthenticatedSessionController@destroy  
+  PUT       password ................................... password.update › Auth\PasswordController@update  
+  GET|HEAD  profile ............................................... profile.edit › ProfileController@edit  
+  PATCH     profile ........................................... profile.update › ProfileController@update  
+  DELETE    profile ......................................... profile.destroy › ProfileController@destroy  
+  GET|HEAD  recettes ............................................. recipes.index › RecipeController@index
+  POST      recettes ............................................. recipes.store › RecipeController@store  
+  GET|HEAD  recettes/ajouter ................................... recipes.create › RecipeController@create  
+  GET|HEAD  recettes/{slug} ........................................ recipes.show › RecipeController@show  
+  GET|HEAD  register .................................... register › Auth\RegisteredUserController@create  
+  POST      register ................................................ Auth\RegisteredUserController@store
+  POST      reset-password ............................ password.store › Auth\NewPasswordController@store  
+  GET|HEAD  reset-password/{token} ................... password.reset › Auth\NewPasswordController@create  
+  GET|HEAD  storage/{path} ................................................................ storage.local  
+  GET|HEAD  up ..........................................................................................  
+  GET|HEAD  verify-email ................... verification.notice › Auth\EmailVerificationPromptController  
+  GET|HEAD  verify-email/{id}/{hash} ................... verification.verify › Auth\VerifyEmailController  

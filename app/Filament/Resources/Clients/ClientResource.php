@@ -8,14 +8,13 @@ use App\Filament\Resources\Clients\Pages\ListClients;
 use App\Filament\Resources\clients\Pages\ToAdmin;
 use App\Filament\Resources\Clients\Schemas\ClientForm;
 use App\Filament\Resources\Clients\Tables\ClientsTable;
-use App\Models\Client;
+use App\Filament\Schemas\ClientInfoList;
 use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class ClientResource extends Resource
@@ -30,6 +29,10 @@ class ClientResource extends Resource
     {
         return ClientForm::configure($schema);
     }
+    public static function infolist(Schema $schema): Schema
+    {
+        return ClientInfoList::configure($schema);
+    } 
 
     public static function table(Table $table): Table
     {

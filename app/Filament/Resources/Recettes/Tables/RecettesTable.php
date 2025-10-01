@@ -22,7 +22,14 @@ class RecettesTable
                 TextColumn::make('description')
                 ->label('Description')
                 ->html()
-                ->default(fn ($record) => strlen($record) > 30 ? substr($record, 0 , 30).'...': $record)
+                ->default(fn ($record) => strlen($record) > 30 ? substr($record, 0 , 30).'...': $record),
+                TextColumn::make('hours')
+                ->label('Temps du preparation')
+                ->searcheable()
+                ->sortable(),
+                TextColumn::make('difficult')
+                ->searcheable()
+                ->label('difficulter')
             ])
             ->filters([
                 //

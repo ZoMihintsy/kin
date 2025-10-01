@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ClientsTable
 {
-    public static function ge()
-    {
-
-    }
     public static function configure(Table $table): Table
     {
         return $table
@@ -34,7 +30,7 @@ class ClientsTable
             ->Actions([
                 EditAction::make()->visible(fn ($record) => $record->id != Auth::user()->id ),
                 DeleteAction::make()->visible(fn ($record) => $record->id != Auth::user()->id ),
-                 ViewAction::make(),
+                ViewAction::make(),
             ]);
     }
 }

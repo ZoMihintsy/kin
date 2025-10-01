@@ -106,8 +106,8 @@ class RepiceForm
                     ->label('Difficulter du preparation')
                     ->options([
                         'facile'=>'Facile',
+                        'moyenne'=>'Moyenne',
                         'difficile'=>'Difficile',
-                        'intermediaire'=>'Intermediaire'
                     ])->preload()
                     ->required()
                 ])->columns(1)
