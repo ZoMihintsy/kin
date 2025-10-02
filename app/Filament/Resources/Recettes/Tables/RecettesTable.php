@@ -25,10 +25,10 @@ class RecettesTable
                 ->default(fn ($record) => strlen($record) > 30 ? substr($record, 0 , 30).'...': $record),
                 TextColumn::make('hours')
                 ->label('Temps du preparation')
-                ->searcheable()
+                ->searchable()
                 ->sortable(),
                 TextColumn::make('difficult')
-                ->searcheable()
+                ->searchable()
                 ->label('difficulter')
             ])
             ->filters([
