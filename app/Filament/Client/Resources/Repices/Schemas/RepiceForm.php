@@ -42,32 +42,20 @@ class RepiceForm
 
                 Hidden::make('slug')
                 ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
-                RichEditor::make('description')
-                ->label('Description'),
+         
 
                 Hidden::make('user_id')
                 ->default(fn()=> Auth::user()->id),
-                
-                Repeater::make('step')
-                ->relationship()
-                ->schema([
-                    TextInput::make('name')
-                    ->required()
-                    ->label('Etape'),
-                    FileUpload::make('image')
-                    ->label('Image pour cette etape (optionnel)')
-                ])
-                ->label('Etape')
-                ->required(),
-
                
                     Select::make('ingredient')
                     ->label('ingredient')
                     ->relationship(name: 'ingredient', titleAttribute: 'name')
-                    ->options(Ingredient::get()->pluck('name','id'))
+                    ->options(Ingredient::orderBy('name','asc')->get()->pluck('name','id'))
                     ->preload()
                     ->multiple()
                     ->searchable()
+                    ->reactive()
+                    ->live()
                     ->createOptionForm([
                         TextInput::make('name')
                         ->label('Nouvel ingredient')
@@ -76,14 +64,18 @@ class RepiceForm
                      Ingredient::create([
                             'name'=>$data['name']
                         ]);
-                        return $data['name'];
+                    })
+                    ->afterStateUpdated( function ($state , callable $set){
+                        if($state){
+                            $set('name', $state);
+                        }
                     })
                     ->required(),
 
                     Select::make('tag')
                     ->label('Type de recette')
                     ->relationship(name: 'tag', titleAttribute: 'name')
-                    ->options(Tag::get()->pluck('name','id'))
+                    ->options(Tag::orderBy('name','asc')->get()->pluck('name','id'))
                     ->preload()
                     ->multiple()
                     ->searchable()
@@ -98,7 +90,6 @@ class RepiceForm
                             'name'=>$data['name'],
                             'slug'=>$data['slug']
                         ]);
-                        return $data['name'];
                     })
                     ->required(),
                     TextInput::make('hours')
@@ -107,14 +98,33 @@ class RepiceForm
                     ->type('number')
                     ->helperText('Format (En minute)'),
                     Select::make('difficult')
-                    ->label('Difficulter du preparation')
+                    ->label('Difficulter')
                     ->options([
                         'facile'=>'Facile',
                         'moyenne'=>'Moyenne',
                         'difficile'=>'Difficile',
                     ])->preload()
+                    ->required(),
+                                    
+                Repeater::make('step')
+                ->label('Les etaps a suivre')
+                ->relationship()
+                ->schema([
+                    TextInput::make('name')
                     ->required()
+                    ->label('Etape'),
+                    FileUpload::make('image')
+                    ->label('Image pour cette etape (optionnel)')
+                ])
+                ->createItemButtonlabel('Plus d\'etape')
+                ->required(),
+
+                RichEditor::make('description')
+                ->label('Description')
+                ->placeholder('Donnez plus de detail pour la recette afin que votre recette soit populaire , donnez plus de detail sur l\'ingredient pour la quantiter par exemple.')
+                ->required()
                 ])->columns(1)
+                    ->columnSpan('full')
                 
             ]);
     }

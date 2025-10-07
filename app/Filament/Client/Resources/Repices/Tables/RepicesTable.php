@@ -23,7 +23,7 @@ class RepicesTable
                 ->label('Nom du recette')->sortable(),
                 TextColumn::make('description')
                 ->html()
-                ->default(fn ($desc) => strlen($desc->description) > 8 ? (strlen($desc->description) <= 10 ? substr($desc->description, 0 , 10).'...' : $desc->description) :"vide"),
+                ->default(fn ($desc) => strlen($desc) > 8 ? (strlen($desc) <= 10 ? substr($desc, 0 , 10).'...' : $desc->description) :"vide"),
                 TextColumn::make('hours')
                 ->searchable()
                 ->label('Heure du preparation')
@@ -37,8 +37,8 @@ class RepicesTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make()->visible(fn($record) => $record->id == Auth::user()->id),
-                DeleteAction::make()->visible(fn($record) => $record->id == Auth::user()->id),
+                EditAction::make()->visible(fn($record) => $record->user_id == Auth::user()->id),
+                DeleteAction::make()->visible(fn($record) => $record->user_id == Auth::user()->id),
             ]);
     }
 }

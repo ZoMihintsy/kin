@@ -37,11 +37,13 @@ class RepiceInfolist
                 ->label('image de l\'etape')  
                 ])->columns(1),
                 TextEntry::make('hours')
-                ->label('Temps du preparation '),
+                ->label('Temps du preparation en minute'),
                 TextEntry::make('difficult')
                 ->label('Difficulter')
                 ->extraAttributes(['class'=>'text-center'])
                 ])->columns(3)
+                    ->columnSpan('full')
+
             ])->extraAttributes(['class'=>'text-center']);
     }
 }
