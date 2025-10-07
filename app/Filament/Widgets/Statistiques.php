@@ -2,13 +2,18 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Recipe;
 use App\Models\User;
+use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Statistiques extends ChartWidget
 {
-    protected ?string $heading = 'Statistiques du recettes';
+    protected ?string $heading = 'Recettes postées par mois';
+    protected static ?int $sort = 2;
+    protected int | string | array $columnSpan = 'full';
 
     protected const COLORS = [
         'rgba(255, 99, 132, 0.7)',  // Rouge
@@ -28,13 +33,31 @@ class Statistiques extends ChartWidget
     }
     protected function getData(): array
     {
-        $data = User::query()
-        ->withCount('recette')
-        ->orderBy('recette_count')
-        ->limit(10)
-        ->get()->where('type','client');
-        $recipeCounts = $data->pluck('recette_count')->toArray();
-$barColors = array_slice(self::COLORS, 0, count($recipeCounts));
+        $date = ['Jan','Feb','Mar', 'Apr' , 'May', 'Jun', 'Jul','Aug','Sept','Oct','Nov','Dec'];
+        $user = Recipe::get();
+       
+            //   dd($takes . ' '. $date[$takes-1]);
+            $year = date('Y');
+        $monthlyData = Recipe::query()
+        ->selectRaw(
+         'MONTH(created_at) as month , YEAR(created_at) as year , COUNT(*) as count'
+        )
+        ->groupBy('month', 'year')
+        ->orderBy('month','asc')
+        ->get();
+$data = array_fill(0 , 12 , 0);
+$label = [];
+foreach (range(1,12) as $value) {
+    # code...
+    $label[] = Carbon::create()->month($value)->monthName;
+}
+foreach ($monthlyData as $key) {
+    # code...
+    $data[$key->month - 1] = $key->count;
+}
+         
+        // $recipeCounts = $data->pluck('recette_count')->toArray();
+// $barColors = array_slice(self::COLORS, 0, count($recipeCounts));
         
         // dd($data->pluck('recette_count'));
         // dd($data->pluck('recette_count')->toArray());
@@ -43,12 +66,12 @@ $barColors = array_slice(self::COLORS, 0, count($recipeCounts));
             'datasets'=>[
                 [
                 'label' => 'Nombre de recettes',
-                'data' => $data->pluck('recette_count')->toArray(),
-                'backgrundColor'=>$barColors
+                'data' => $data,
+                // 'backgrundColor'=>$barColors
                 ]
                 
             ],
-            'labels'=>$data->pluck('name')->toArray(),
+            'labels'=>$label,
         ];
     }
     public function canAccess() : bool 

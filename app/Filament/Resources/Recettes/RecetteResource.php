@@ -21,6 +21,8 @@ class RecetteResource extends Resource
 {
     protected static ?string $model = Recipe::class;
 
+    protected static ?string $navigationLabel = "Recettes";
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Cake;
 
     protected static ?string $recordTitleAttribute = 'title';

@@ -33,6 +33,7 @@ class ClientPanelProvider extends PanelProvider
             ->path('client')
             ->login()
             ->profile()
+            ->topNavigation()
             ->registration()
             ->colors([
                 'primary' => Color::Rose,
@@ -62,7 +63,7 @@ class ClientPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->passwordReset()
             ->navigationItems([
-                NavigationItem::make('Administrers')
+                NavigationItem::make('Administrer')
                 ->url('/admin-kim')
                 ->icon('heroicon-o-users')
                 ->visible(function () : bool{

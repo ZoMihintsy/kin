@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Auth;
 
 class RepiceForm
 {
+    protected int | string | array $columnSpan = 'full';
+
+    
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -28,7 +31,8 @@ class RepiceForm
                 ->schema([
                 //
                 TextInput::make('title')
-                ->label('Titre du recette')
+                ->label('Nom du recette')
+                
                 ->required()
                 ->columns(1),
 
@@ -39,7 +43,7 @@ class RepiceForm
                 Hidden::make('slug')
                 ->default(fn()=> Auth::user()->name.'_'.rand(1 , 1999999).'_'.Auth::user()->id),
                 RichEditor::make('description')
-                ->label('description'),
+                ->label('Description'),
 
                 Hidden::make('user_id')
                 ->default(fn()=> Auth::user()->id),
@@ -51,7 +55,7 @@ class RepiceForm
                     ->required()
                     ->label('Etape'),
                     FileUpload::make('image')
-                    ->label('Image pour cette etape')
+                    ->label('Image pour cette etape (optionnel)')
                 ])
                 ->label('Etape')
                 ->required(),
@@ -98,10 +102,10 @@ class RepiceForm
                     })
                     ->required(),
                     TextInput::make('hours')
-                    ->label('Heure du preparation')
-                    ->placeholder('heure:minute:seconde')
-                    ->mask('99:99:99')
-                    ->helperText('Format (heure : minute : seconde)'),
+                    ->label('Temps du preparation')
+                    ->placeholder('minute')
+                    ->type('number')
+                    ->helperText('Format (En minute)'),
                     Select::make('difficult')
                     ->label('Difficulter du preparation')
                     ->options([

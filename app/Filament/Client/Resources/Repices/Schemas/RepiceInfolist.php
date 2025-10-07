@@ -30,22 +30,18 @@ class RepiceInfolist
                 TextEntry::make('tag.name')
                 ->label('Type de repas')
                 ->html(),
-                Section::make()->schema([
+                Grid::make()->schema([
                   TextEntry::make('step.name')
                 ->label('Etape'),     
                 ImageEntry::make('step.image')
                 ->label('image de l\'etape')  
-                ])->columns(1)
-                ,
+                ])->columns(1),
                 TextEntry::make('hours')
-                ->label('Heure du preparation '),
+                ->label('Temps du preparation '),
                 TextEntry::make('difficult')
                 ->label('Difficulter')
-                ])->columns(1)
-       
-               
-                
-
-            ]);
+                ->extraAttributes(['class'=>'text-center'])
+                ])->columns(3)
+            ])->extraAttributes(['class'=>'text-center']);
     }
 }

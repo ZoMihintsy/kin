@@ -21,6 +21,8 @@ class ClientResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static ?string $navigationLabel = "Utilisateurs";
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';

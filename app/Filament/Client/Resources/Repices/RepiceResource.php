@@ -27,13 +27,17 @@ class RepiceResource extends Resource
 {
     protected static ?string $model = Recipe::class;
 
+    protected static ?string $navigationLabel = "Recettes";
+
+    protected int | string | array $columnSpan = 'full';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'title';
   
     public static function getGloballySearchableAttributes(): array
     {         
-        return ['title', 'description','user.name','tag.name', 'hours', 'difficult'];
+        return ['title', 'description','user.name','tag.name', 'hours', 'difficult' , 'ingredient.name'];
     }
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {

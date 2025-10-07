@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RepicesTable
 {
+    
     public static function configure(Table $table): Table
     {
         return $table

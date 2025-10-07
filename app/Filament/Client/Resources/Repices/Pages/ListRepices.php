@@ -10,10 +10,16 @@ class ListRepices extends ListRecords
 {
     protected static string $resource = RepiceResource::class;
 
+    public function getTitle() : string 
+    {
+        return "Les recettes";
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+            ->label('Creer une nouvelle recette'),
         ];
     }
 }

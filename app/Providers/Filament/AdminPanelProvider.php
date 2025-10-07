@@ -43,7 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin-kim')
             ->login()
             ->registration()
-            
+            ->topNavigation() 
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -57,8 +57,9 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 // AccountWidget::class,
                 // FilamentInfoWidget::class,
-                Statistiques::class,
                 Utilisateur::class,
+                Statistiques::class,
+                
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -75,7 +76,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->navigationItems([
-                NavigationItem::make('Go to client')
+                NavigationItem::make('Passer en client')
                 ->url('/client')
                 ->icon('heroicon-o-users'),
             ]);
