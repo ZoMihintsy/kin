@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ingredient;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,9 +16,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $ingredients = [
+            ['name' => 'Farine'],
+            ['name' => 'Sucre'],
+            ['name' => 'Œufs'],
+            ['name' => 'Beurre'],
+            ['name' => 'Lait'],
+            ['name' => 'Sel'],
+            ['name' => 'Levure chimique'],
+            ['name' => 'Poivre'],
+            ['name' => 'Huile d\'olive'],
+            ['name' => 'Tomates'],
+        ];
+
+        foreach ($ingredients as $ingredient) {
+            Ingredient::create($ingredient);
+        }
+
     }
 }
